@@ -55,14 +55,7 @@
     "quotes": "off",
     "object-curly-spacing": 1,
     "array-bracket-spacing": 1,
-    "prettier/prettier": [
-      "warn",
-      {
-        "printWidth": 80,
-        "singleQuote": false,
-        "endOfLine": "auto"
-      }
-    ],
+    "prettier/prettier": "off",
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
       "warn",
