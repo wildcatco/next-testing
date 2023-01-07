@@ -12,7 +12,8 @@
     "db:reset": "sh scripts/reset-db.sh",
     "cypress:open": "env-cmd -f .env.test.local cypress open",
     "cypress:start": "start-server-and-test --expect 200 'npm run start:test' 3000 'npm run cypress:open'",
-    "cypress:build": "npm run build:test && npm run cypress:start"
+    "cypress:build": "npm run build:test && npm run cypress:start",
+    "cypress:run": "start-server-and-test --expect 200 'npm run start:test' 3000 'env-cmd -f .env.test.local cypress run'"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.6",
