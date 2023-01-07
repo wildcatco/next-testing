@@ -2,7 +2,7 @@ import { readFakeData } from "@/__tests__/__mocks__/fakeData";
 import { filenames, writeJSONToFile } from "@/lib/db/db-utils";
 
 export const resetDB = async () => {
-  // failsafe against resetting production db
+  // failsafe against resetting production db.
   const safeToReset = process.env.NODE_ENV === "test";
   if (!safeToReset) {
     // eslint-disable-next-line no-console

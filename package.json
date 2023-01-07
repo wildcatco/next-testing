@@ -4,9 +4,15 @@
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
+    "build:test": "npm run db:reset && blitz build -e test",
     "start": "next start",
+    "start:test": "blitz start -e test",
     "test": "jest --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "db:reset": "sh scripts/reset-db.sh",
+    "cypress:open": "env-cmd -f .env.test.local cypress open",
+    "cypress:start": "start-server-and-test --expect 200 'npm run start:test' 3000 'npm run cypress:open'",
+    "cypress:build": "npm run build:test && npm run cypress:start"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.6",
@@ -14,6 +20,7 @@
     "@emotion/styled": "^11.8.1",
     "@types/testing-library__jest-dom": "^5.14.5",
     "axios": "^0.26.1",
+    "blitz": "^2.0.0-beta.21",
     "dayjs": "^1.11.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -40,6 +47,7 @@
     "swr": "^1.2.2"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^9.0.0",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
@@ -49,11 +57,14 @@
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "babel-jest": "27.4.5",
+    "cypress": "^12.3.0",
+    "env-cmd": "^10.1.0",
     "eslint": "8.5.0",
     "eslint-config-next": "^12.1.0",
     "eslint-plugin-testing-library": "^5.0.1",
     "jest": "27.4.5",
     "msw": "^0.49.2",
+    "start-server-and-test": "^1.15.2",
     "typescript": "4.5.4",
     "typescript-eslint": "^0.0.1-alpha.0"
   }
