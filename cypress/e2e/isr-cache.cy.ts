@@ -23,3 +23,5 @@ it("'bands' page's data is coming from ISR cache", () => {
   cy.findByRole("heading", { name: /shamrock pete/i }).should("exist");
   cy.findByRole("heading", { name: /the wandering bunnies/i }).should("exist");
 });
+
+export {};
