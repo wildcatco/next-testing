@@ -34,3 +34,38 @@ it("runs auth flow for successful login to protected reservations page", () => {
   // check that sign in button does not exists
   cy.findByRole("button", { name: /sign in/i }).should("not.exist");
 });
+
+it("login fails", () => {
+  cy.task("db:reset").visit("/user");
+
+  cy.findByRole("heading", { name: /welcome/i }).should("not.exist");
+
+  cy.findByLabelText(/email address/i)
+    .clear()
+    .type(Cypress.env("USER_EMAIL"));
+  cy.findByLabelText(/password/i)
+    .clear()
+    .type("wrongPassword");
+  cy.findByRole("main").within(() => {
+    cy.findByRole("button", { name: /sign in/i }).click();
+  });
+
+  cy.findByText(/sign in failed/i);
+
+  cy.findByLabelText(/email address/i)
+    .clear()
+    .type(Cypress.env("USER_EMAIL"));
+  cy.findByLabelText(/password/i)
+    .clear()
+    .type(Cypress.env("PASSWORD"));
+  cy.findByRole("main").within(() => {
+    cy.findByRole("button", { name: /sign in/i }).click();
+  });
+
+  cy.findByRole("heading", { name: /welcome/i }).should("exist");
+  cy.findByRole("heading", { name: /your tickets/i }).should("exist");
+
+  cy.findByRole("button", { name: Cypress.env("USER_EMAIL") }).should("exist");
+  cy.findByRole("button", { name: /sign out/i }).should("exist");
+  cy.findByRole("button", { name: /sign in/i }).should("not.exist");
+});
