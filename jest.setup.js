@@ -5,7 +5,15 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
 
+// polyfill necessary for jsdom test environment
+// reference: https://stackoverflow.com/a/68468204
+import { TextDecoder, TextEncoder } from "util";
+
+import { resetDB } from "@/__tests__/__mocks__/db/utils/reset-db";
 import { server } from "@/__tests__/__mocks__/msw/server";
+
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
@@ -14,3 +22,8 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 // Clean up after the tests are finished.
 afterAll(() => server.close());
+
+// reset db
+beforeEach(async () => {
+  await resetDB();
+});
