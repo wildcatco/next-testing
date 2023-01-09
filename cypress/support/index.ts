@@ -6,6 +6,7 @@ declare global {
     interface Chainable {
       write(value: string | RegExp): Chainable<Element>;
       resetDbAndIsrCache(): Chainable<Element>;
+      signIn(email: string, password: string): Chainable<Element>;
     }
     interface cy {
       state(value: string | RegExp): Chainable<Element>;

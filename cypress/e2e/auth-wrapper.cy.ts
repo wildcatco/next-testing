@@ -79,3 +79,18 @@ it("redirects to sign-in for protected pages", () => {
     });
   });
 });
+
+it("does not show sign-in page when already signed in", () => {
+  cy.task("db:reset").signIn(
+    Cypress.env("USER_EMAIL"),
+    Cypress.env("PASSWORD")
+  );
+
+  cy.visit("/reservations/0");
+
+  cy.findByRole("heading", { name: /sign in to your account/i }).should(
+    "not.exist"
+  );
+
+  cy.findByRole("button", { name: /purchase/i }).should("exist");
+});
