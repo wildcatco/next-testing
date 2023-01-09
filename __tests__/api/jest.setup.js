@@ -10,17 +10,15 @@ import "@testing-library/jest-dom/extend-expect";
 import { TextDecoder, TextEncoder } from "util";
 
 import { resetDB } from "@/__tests__/__mocks__/db/utils/reset-db";
-import { server } from "@/__tests__/__mocks__/msw/server";
 
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// msw
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
 // reset db
 beforeEach(async () => {
+  await resetDB();
+});
+
+afterEach(async () => {
   await resetDB();
 });
